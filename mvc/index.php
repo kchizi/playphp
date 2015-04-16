@@ -11,11 +11,11 @@
     define('MVC',true);
     define('W_PATH',getcwd());
     require W_PATH.'/config/config.ini.php';
-    $i = new \mvc\controller\IndexController();
-    $m = new \mvc\model\IndexModel();
-    $i->index();
-    $i->p($_SERVER);
-    sleep(10);
-    echo 'test';
+    $i = new \mvc\controller\IdexController();
+//    $m = new \mvc\model\IndexModel();
+//    $i->index();
+//    $i->p($_SERVER);
+//    sleep(10);
+//    echo 'test';
 //    $m->index();
 ?>
