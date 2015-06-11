@@ -4,6 +4,7 @@
      */
 //    echo urldecode('Weike%5FUserhits%5F174241=1; Weike%5FUseradopt%5F174241%5F3=174241%5F3');
 //    die;
+    set_time_limit(0);
     $data=array(
         'vodid' => '174241',
         'xiangmu' => '3',
@@ -28,17 +29,20 @@
     $ch = curl_init();
     curl_setopt($ch,CURLOPT_HEADER,1);//头文件以数据流输出
     curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);//返回采集信息
-    $rand_key = mt_rand(0, 9);
-    $ip= long2ip(mt_rand($ip_long[$rand_key][0], $ip_long[$rand_key][1]));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-FORWARDED-FOR:'.$ip, 'CLIENT-IP:'.$ip));  //构造IP
-    curl_setopt($ch, CURLOPT_REFERER, "http://www.baidu.com/ ");   //构造来路
 //    curl_setopt($ch,CURLOPT_COOKIE,$cookie);
-    for($i=0;$i<1000;$i++){
-        curl_setopt($ch,CURLOPT_URL,$index);
+    for($i=0;$i<30000;$i++){
+        $rand_key = mt_rand(0, 9);
+        $ip= long2ip(mt_rand($ip_long[$rand_key][0], $ip_long[$rand_key][1]));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-FORWARDED-FOR:'.$ip, 'CLIENT-IP:'.$ip));  //构造IP
+        curl_setopt($ch,CURLOPT_NOBODY,false);
+        curl_setopt($ch, CURLOPT_REFERER, "http://www.baidu.com/ ");   //构造来路
+        curl_setopt($ch,CURLOPT_URL,$url);
         curl_setopt($ch,CURLOPT_HTTPGET,1);
 //    curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
         curl_setopt($ch,CURLOPT_TIMEOUT,30);
         $str=curl_exec($ch);
+        echo $i;
+//        usleep(200);
     }
     if(curl_errno($ch)){
         echo curl_errno($ch);
